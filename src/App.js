@@ -36,7 +36,21 @@ useEffect (() => {
  
 
   return (
-  "hello"
+    <div>
+      <h1> recipesss</h1>
+      <button> add recipe </button>
+
+      <div className='recipies'>
+        {recipes.map((recipe,i) => (
+          <div className='recipe' key={recipe.id}> 
+            {recipe.title}
+          </div>
+        ))}
+      </div>
+
+    </div>
+  
+
   );
 }
 
