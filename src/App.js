@@ -43,7 +43,16 @@ useEffect (() => {
       <div className='recipies'>
         {recipes.map((recipe,i) => (
           <div className='recipe' key={recipe.id}> 
-            {recipe.title}
+            <h3> {recipe.title}</h3>
+
+            <p dangerouslySetInnerHTML={{ __html: recipe.desc }}></p> 
+{/* need to fix line 48 */}
+            <h4>Ingredients</h4>
+              <ul>
+                { recipe.ingredients.map((ingredient, i) => (
+                  <li key={i}>{ ingredient }</li>
+                ))}
+              </ul>
           </div>
         ))}
       </div>
