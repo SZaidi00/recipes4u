@@ -4,6 +4,9 @@ import {db} from "./firebase-config"
 import {useState,useEffect} from "react"
 import{getDocs ,collection, onSnapshot} from "firebase/firestore"
 
+
+import Button from '@mui/material/Button';
+
 function App() {
   const [recipes, setRecipes] = useState([]);
   const recipesCollectionRef = collection(db, "recipes")
@@ -34,10 +37,15 @@ useEffect (() => {
 },[])
  
 
+
+
+
+
+
   return (
     <div>
-      <h1> recipesss</h1>
-      <button> add recipe </button>
+      <h1 className='title'> recipesss</h1>
+      <Button className = "add" variant="contained">Add Recipe</Button>
 
       <div className='recipies'>
         {/* loop through the the recipes in the database */}
