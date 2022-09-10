@@ -1,18 +1,17 @@
-
 import React from 'react';
 import './App.css';
 import {db} from "./firebase-config"
 import {useState,useEffect} from "react"
-
 import{getDocs ,collection, onSnapshot} from "firebase/firestore"
 
 function App() {
   const [recipes, setRecipes] = useState([]);
   const recipesCollectionRef = collection(db, "recipes")
 
+
   const [form, setForm] = useState({
     title: "",
-    desc: "",
+    description: "",
     ingredients: [],
     steps: []
   })
@@ -41,18 +40,26 @@ useEffect (() => {
       <button> add recipe </button>
 
       <div className='recipies'>
-        {recipes.map((recipe,i) => (
+        {/* loop through the the recipes in the database */}
+        {recipes.map((recipe,i) => ( 
           <div className='recipe' key={recipe.id}> 
             <h3> {recipe.title}</h3>
+              
+            <div dangerouslySetInnerHTML={{__html: recipe.description}}
+            /> 
 
-            <p dangerouslySetInnerHTML={{ __html: recipe.desc }}></p> 
-{/* need to fix line 48 */}
             <h4>Ingredients</h4>
               <ul>
                 { recipe.ingredients.map((ingredient, i) => (
                   <li key={i}>{ ingredient }</li>
                 ))}
               </ul>
+            <h4> Follow These Easy Steps!</h4>
+              <ol>
+                {recipe.steps.map((step,i) =>(
+                  <li key={i}>{step}</li>
+                ))}
+              </ol>
           </div>
         ))}
       </div>
