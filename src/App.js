@@ -49,14 +49,50 @@ const handleView = id => {
   setRecipes(recipesClone)
 }
 
+const handleSubmit = e => {
+  e.preventDefault()
+}
 
+const handleIngredient = (e,i) =>{
+  const ingredientsClone = [...form.ingredients]
+
+  ingredientsClone[i] = e.target.value
+  setForm({
+    ...form,
+    ingredients: ingredientsClone
+  })
+}
+
+const handleStep = (e,i) =>{
+  const stepsClone = [...form.steps]
+
+  stepsClone[i] = e.target.value
+  setForm({
+    ...form,
+    steps: stepsClone
+  })
+}
+
+const handleIngredientCount = () => {
+  setForm ({
+    ...form,
+    ingredients: [...form.ingredients,""]
+  })
+}
+
+const handleStepCount = () => {
+  setForm ({
+    ...form,
+    steps: [...form.steps,""]
+  })
+}
 
 
   return (
     <div className='App'>
       <h1> Recipesss</h1>
       {/* <Button variant="contained">Add Recipe</Button> */}
-      <Button> add</Button>
+      <button onClick={() => setPopupActive(!popupActive) }> Add ???</button>
 
       <div className='recipes'>
         {/* loop through the the recipes in the database */}
@@ -89,12 +125,62 @@ const handleView = id => {
           </div>
         ))}
       </div>
+
+      {popupActive && <div className='popup'>
+      <div className='popup-inner'> 
+          <h2> Add New Recipe</h2> 
+          <form onSubmit={handleSubmit}>
+            <div className='form-group'>
+                <lable>Title</lable>
+                <input
+                 type='text'
+                 value={form.title}
+                 onChange={e => setForm({...form, title: e.target.value})} />
+            </div>
+
+            <div className='form-group'>
+                <lable>Description</lable>
+                <textarea
+                 type='text'
+                 value={form.description}
+                 onChange={e => setForm({...form, description: e.target.value})} />
+            </div>
+
+            <div className='form-group'>
+                <lable>Ingredients</lable>
+                {
+                  form.ingredients.map((ingredient,i) => (
+                    <textarea
+                    type='text'
+                    key={i}
+                    value={ingredient}
+                    onChange={e => handleIngredient(e,i)} />
+                  ))
+                }
+                <br/>
+                <button type='button' onClick={handleIngredientCount}>Add Ingredient</button>
+            </div>
+
+            <div className='form-group'>
+                <lable>Steps</lable>
+                {
+                  form.steps.map((step,i) => (
+                    <textarea
+                    type='text'
+                    key={i}
+                    value={step}
+                    onChange={e => handleStep(e,i)} />
+                  ))
+                }
+                <br/>
+                <button type='button' onClick={handleStepCount}>Add Steps</button>
+            </div>
+
+          </form>     
+      </div>
+      </div>}
+
     </div>
-
-
-  
-
-
   );
 }
 
