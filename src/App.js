@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import {db} from "./firebase-config"
 import {useState,useEffect} from "react"
-import{getDocs ,collection, onSnapshot} from "firebase/firestore"
+import{collection, onSnapshot} from "firebase/firestore"
 
 
 import Button from '@mui/material/Button';
@@ -43,11 +43,12 @@ useEffect (() => {
 
 
   return (
-    <div>
-      <h1 className='title'> recipesss</h1>
-      <Button className = "add" variant="contained">Add Recipe</Button>
+    <div className='App'>
+      <h1> Recipesss</h1>
+      {/* <Button variant="contained">Add Recipe</Button> */}
+      <Button> add</Button>
 
-      <div className='recipies'>
+      <div className='recipes'>
         {/* loop through the the recipes in the database */}
         {recipes.map((recipe,i) => ( 
           <div className='recipe' key={recipe.id}> 
@@ -72,8 +73,13 @@ useEffect (() => {
         ))}
       </div>
 
+
+
     </div>
+
+
   
+
 
   );
 }
