@@ -2,10 +2,8 @@ import React from 'react';
 import './App.css';
 import {db} from "./firebase-config"
 import {useState,useEffect} from "react"
-import{collection, onSnapshot} from "firebase/firestore"
+import{collection, onSnapshot, doc, deleteDoc, addDoc} from "firebase/firestore"
 
-
-import Button from '@mui/material/Button';
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -19,8 +17,6 @@ function App() {
     steps: []
   })
   const [popupActive, setPopupActive] = useState(false)
-
-
 
 useEffect (() => {
   onSnapshot(recipesCollectionRef,snapshot => {
@@ -51,6 +47,25 @@ const handleView = id => {
 
 const handleSubmit = e => {
   e.preventDefault()
+// if anything is empty then return an alert
+  if(
+    !form.title || 
+    !form.description||
+    !form.ingredients ||
+    !form.steps
+  ) {
+    alert("Please fill out all fields")
+    return
+  }
+
+  addDoc(recipesCollectionRef,form)
+  setForm({
+    title: "",
+    description: "",
+    ingredients: [],
+    steps: []
+  })
+setPopupActive(false)
 }
 
 const handleIngredient = (e,i) =>{
@@ -87,12 +102,16 @@ const handleStepCount = () => {
   })
 }
 
+const removeRecipe = id => {
+  deleteDoc(doc(db,"recipes",id))
+}
+
 
   return (
     <div className='App'>
-      <h1> Recipesss</h1>
+      <h1> Recipes </h1>
       {/* <Button variant="contained">Add Recipe</Button> */}
-      <button onClick={() => setPopupActive(!popupActive) }> Add ???</button>
+      <button onClick={() => setPopupActive(!popupActive) }> Add </button>
 
       <div className='recipes'>
         {/* loop through the the recipes in the database */}
@@ -100,7 +119,7 @@ const handleStepCount = () => {
           <div className='recipe' key={recipe.id}> 
             <h3> {recipe.title}</h3>
               
-            <div dangerouslySetInnerHTML={{__html: recipe.description}}
+            <div className = "desc " dangerouslySetInnerHTML={{__html: recipe.description}}
             /> 
             {recipe.viewing && <div>
             <h4>Ingredients</h4>
@@ -119,7 +138,7 @@ const handleStepCount = () => {
 
             <div className='buttons'>
                   <button onClick={() => handleView(recipe.id)}> View {recipe.viewing ? 'less' : 'more'}</button>
-                  <button className='Remove'> Remove</button>
+                  <button className='Remove' onClick={() => removeRecipe(recipe.id)}> Remove</button>
             </div>
 
           </div>
@@ -174,6 +193,11 @@ const handleStepCount = () => {
                 }
                 <br/>
                 <button type='button' onClick={handleStepCount}>Add Steps</button>
+            </div>
+            
+            <div className='buttons'>
+                <button type='submit'>Submit</button>
+                <button type='button' class='remove' onClick={() => setPopupActive(false)} >Close</button>
             </div>
 
           </form>     

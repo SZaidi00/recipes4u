@@ -2,7 +2,7 @@
   --light: rgb(158, 34, 34);
   --dark: #cd7272;
   --darker: #eeeeee;
-  --blue: rgb(30, 255, 0);
+  --black: rgb(0, 0, 0);
   --crimson: #DB3052;
   --white: rgb(11, 10, 10);
 }
@@ -38,6 +38,8 @@ h1 {
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-gap: 1rem;
   color: var(--darker);
+  padding-left: 4px;
+  
 }
 
 .recipe {
@@ -45,6 +47,11 @@ h1 {
   padding: 1rem;
   border-radius: 0.5rem;
   text-align: left;
+  text-indent: 1px;
+}
+
+.desc{
+  text-align: center;
 }
 
 button {
@@ -60,7 +67,7 @@ button {
 
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
-  background-color: var(--blue);
+  background-color: var(--black);
 }
 
 .buttons {
@@ -68,7 +75,7 @@ button {
   align-items: center;
   margin-top: 2rem;
   margin-left: -0.5rem;
-  
+  transform: translate(20%, -50%);  
 }
 
 .buttons button {
@@ -81,13 +88,17 @@ button.remove {
   background-color: var(--crimson);
 }
 
+h3{
+  text-align: center;
+}
 h4 {
   margin-bottom: 1rem;
   margin-top: 2rem;
+  text-align: center;
 }
 
 ol, ul {
-  list-style: none;
+  padding-left: 10px;
 }
 
 li {
