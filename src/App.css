@@ -1,10 +1,9 @@
 :root {
   --light: rgb(158, 34, 34);
-  --dark: #cd7272;
-  --darker: #eeeeee;
+  --dark: rgb(158, 34, 34);
+  --white: #eeeeee;
   --black: rgb(0, 0, 0);
-  --crimson: #DB3052;
-  --white: rgb(11, 10, 10);
+  --darker: rgb(11, 10, 10);
 }
 
 * {
@@ -15,7 +14,7 @@
 }
 
 body {
-  background-color: var(--darker);
+  background-color: var(--white);
 }
 
 .App {
@@ -37,7 +36,7 @@ h1 {
   margin: 2rem auto 0;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-gap: 1rem;
-  color: var(--darker);
+  color: var(--white);
   padding-left: 4px;
   
 }
@@ -61,7 +60,7 @@ button {
   outline: none;
   cursor: pointer;
 
-  color: var(--darker);
+  color: var(--white);
   font-weight: bold;
   text-transform: uppercase;
 
@@ -75,7 +74,6 @@ button {
   align-items: center;
   margin-top: 2rem;
   margin-left: -0.5rem;
-  transform: translate(15%, -50%);  
 }
 
 .buttons button {
@@ -84,8 +82,13 @@ button {
 }
 
 button.remove {
-  color: var(--light);
-  background-color: var(--crimson);
+  color: var(--white);
+  background-color: var(--black);
+}
+
+h2{
+  color: var(--white);
+  text-align: center;
 }
 
 h3{
@@ -153,6 +156,11 @@ input, textarea {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
+}
+
+.form-group{
+  color: var(--white);
+
 }
 
 .form-group button {
