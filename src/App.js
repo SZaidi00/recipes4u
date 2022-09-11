@@ -35,9 +35,19 @@ useEffect (() => {
     //console.log(snapshot)
   })
 },[])
- 
 
+const handleView = id => {
+  const recipesClone = [...recipes]
 
+  recipesClone.forEach(recipe => {
+    if(recipe.id === id){
+      recipe.viewing = !recipe.viewing
+     } else {
+      recipe.viewing = false
+     }
+  })
+  setRecipes(recipesClone)
+}
 
 
 
@@ -56,7 +66,7 @@ useEffect (() => {
               
             <div dangerouslySetInnerHTML={{__html: recipe.description}}
             /> 
-
+            {recipe.viewing && <div>
             <h4>Ingredients</h4>
               <ul>
                 { recipe.ingredients.map((ingredient, i) => (
@@ -69,12 +79,16 @@ useEffect (() => {
                   <li key={i}>{step}</li>
                 ))}
               </ol>
+              </div>}
+
+            <div className='buttons'>
+                  <button onClick={() => handleView(recipe.id)}> View {recipe.viewing ? 'less' : 'more'}</button>
+                  <button className='Remove'> Remove</button>
+            </div>
+
           </div>
         ))}
       </div>
-
-
-
     </div>
 
 
